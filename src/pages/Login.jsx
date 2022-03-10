@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addUser } from '../redux/actions/actions';
 
 class Login extends Component {
     state = {
@@ -20,7 +23,17 @@ class Login extends Component {
     }
 
     render() {
-      const { name, email, isDisable } = this.state;
+      const {
+        redirectToSettings,
+        history,
+      } = this.props;
+
+      const {
+        name,
+        email,
+        isDisable,
+      } = this.state;
+
       return (
         <main>
           <h2>Login</h2>
@@ -56,6 +69,17 @@ class Login extends Component {
             >
               Play
             </button>
+
+            <button
+              data-testid="btn-settings"
+              onClick={ () => {
+                redirectToSettings(name);
+                history.push('/settings');
+              } }
+              type="button"
+            >
+              Settings
+            </button>
           </div>
 
         </main>
@@ -63,4 +87,15 @@ class Login extends Component {
     }
 }
 
-export default Login;
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  redirectToSettings: PropTypes.func,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  redirectToSettings: (state) => dispatch(addUser(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
