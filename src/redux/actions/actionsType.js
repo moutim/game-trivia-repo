@@ -1,3 +1,5 @@
 export const ADD_USER = 'ADD_USER';
 
-export const TEST = 'TESTE';
+export const REQUEST_TOKEN = 'REQUEST_TOKEN';
+export const GET_TOKEN_SUCCESS = 'GET_TOKEN_SUCCESS';
+export const GET_TOKEN_ERROR = 'GET_TOKEN_ERROR';

@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addUser } from '../redux/actions/actions';
+
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import fetchToken from '../redux/actions/tokenAction';
+import addUser from '../redux/actions/actionUser';
 
 class Login extends Component {
     state = {
       email: '',
       name: '',
       isDisable: true,
+      redirect: false,
     }
 
     isValidInfo = () => {
@@ -16,6 +20,18 @@ class Login extends Component {
       if (email && name) {
         this.setState({ isDisable: false });
       } else this.setState({ isDisable: true });
+    }
+
+    handleButtonPlay = async () => {
+      const { name, email } = this.state;
+      const { sendToken, sendUser } = this.props;
+      await sendToken();
+      const { token } = this.props;
+      localStorage.setItem('token', token);
+      sendUser({ name, email });
+      this.setState({
+        redirect: true,
+      });
     }
 
     handleInputChange = ({ target: { value, id } }) => {
@@ -32,10 +48,12 @@ class Login extends Component {
         name,
         email,
         isDisable,
+        redirect,
       } = this.state;
 
       return (
         <main>
+          { redirect && <Redirect to="/screenGame" /> }
           <h2>Login</h2>
 
           <div className="userInputs">
@@ -66,6 +84,7 @@ class Login extends Component {
               data-testid="btn-play"
               disabled={ isDisable }
               type="button"
+              onClick={ this.handleButtonPlay }
             >
               Play
             </button>
@@ -81,7 +100,6 @@ class Login extends Component {
               Settings
             </button>
           </div>
-
         </main>
       );
     }
@@ -90,12 +108,21 @@ class Login extends Component {
 Login.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
-  }),
-  redirectToSettings: PropTypes.func,
-}.isRequired;
+  }).isRequired,
+  redirectToSettings: PropTypes.func.isRequired,
+  sendToken: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
+  sendUser: PropTypes.func.isRequired,
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  redirectToSettings: (state) => dispatch(addUser(state)),
+const mapStateToProps = (state) => ({
+  token: state.token.token,
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapDispatchToProps = (dispatch) => ({
+  sendToken: () => dispatch(fetchToken()),
+  sendUser: (infoUser) => dispatch(addUser(infoUser)),
+  redirectToSettings: (nameUser) => dispatch(addUser(nameUser)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
