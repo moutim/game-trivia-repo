@@ -29,6 +29,7 @@ class Login extends Component {
       const { sendToken, sendUser } = this.props;
       await sendToken();
       const { token } = this.props;
+      console.log(token);
       localStorage.setItem('token', token);
       sendUser({ name, email });
       this.setState({
@@ -128,7 +129,7 @@ Login.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  token: state.token.token,
+  token: state.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
