@@ -64,25 +64,27 @@ class Login extends Component {
 
             <div className="userInputs">
               <label htmlFor="name">
-                Nome:
+                <ion-icon name="person-sharp" />
                 <input
                   value={ name }
                   data-testid="input-player-name"
                   type="text"
                   name="name"
                   id="name"
+                  placeholder="Nome"
                   onChange={ this.handleInputChange }
                 />
               </label>
 
               <label htmlFor="email">
-                Email:
+                <ion-icon name="mail-sharp" />
                 <input
                   value={ email }
                   data-testid="input-gravatar-email"
                   type="text"
                   name="email"
                   id="email"
+                  placeholder="Email"
                   onChange={ this.handleInputChange }
                 />
               </label>

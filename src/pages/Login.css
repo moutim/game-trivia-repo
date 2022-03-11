@@ -12,7 +12,8 @@
 }
 
 .triviaImg {
-  padding: 15px 0;
+  border-bottom: 2px solid black;
+  padding: 20px 0;
   width: 300px;
 }
 
@@ -20,25 +21,35 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 }
 
 .userInputs {
-  align-items: center;
+  align-items: baseline;
   display: flex;
   flex-direction: column;
 }
 
 .userInputs label {
+  align-items: center;
+  display: flex;
   padding: 8px 0;
 }
 
 
 .userInputs input {
-  border: 1px solid black;
-  border-radius: 5px;
+  background-color: rgb(226, 226, 226);
+  border: none;
+  border-bottom: 2px solid black;
+  border-radius: 3px;
   box-shadow: 0 0 10px 0 rgb(3, 107, 82);
   margin-left: 5px;
-  padding: 5px;
+  padding: 3px;
+}
+
+.userInputs input:hover {
+  background-color: rgb(243, 243, 243);
+  transition: 0.25s;
 }
 
 .userButtons {
