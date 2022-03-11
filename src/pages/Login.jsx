@@ -27,7 +27,6 @@ class Login extends Component {
       const { sendToken, sendUser } = this.props;
       await sendToken();
       const { token } = this.props;
-      console.log(token);
       localStorage.setItem('token', token);
       sendUser({ name, email });
       this.setState({
@@ -40,7 +39,18 @@ class Login extends Component {
     }
 
     render() {
-      const { name, email, isDisable, redirect } = this.state;
+      const {
+        redirectToSettings,
+        history,
+      } = this.props;
+
+      const {
+        name,
+        email,
+        isDisable,
+        redirect,
+      } = this.state;
+
       return (
         <main>
           { redirect && <Redirect to="/screenGame" /> }
@@ -78,6 +88,17 @@ class Login extends Component {
             >
               Play
             </button>
+
+            <button
+              data-testid="btn-settings"
+              onClick={ () => {
+                redirectToSettings(name);
+                history.push('/settings');
+              } }
+              type="button"
+            >
+              Settings
+            </button>
           </div>
         </main>
       );
@@ -85,6 +106,10 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+  redirectToSettings: PropTypes.func.isRequired,
   sendToken: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   sendUser: PropTypes.func.isRequired,
@@ -97,6 +122,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   sendToken: () => dispatch(fetchToken()),
   sendUser: (infoUser) => dispatch(addUser(infoUser)),
+  redirectToSettings: (nameUser) => dispatch(addUser(nameUser)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
