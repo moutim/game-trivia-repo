@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import fetchToken from '../redux/actions/tokenAction';
 import addUser from '../redux/actions/actionUser';
+import triviaImg from '../trivia.png';
+import './Login.css';
 
 class Login extends Component {
     state = {
@@ -52,53 +54,63 @@ class Login extends Component {
       } = this.state;
 
       return (
-        <main>
+        <main className="mainLogin">
           { redirect && <Redirect to="/screenGame" /> }
-          <h2>Login</h2>
 
-          <div className="userInputs">
-            <label htmlFor="name">
-              Nome:
-              <input
-                value={ name }
-                data-testid="input-player-name"
-                type="text"
-                name="name"
-                id="name"
-                onChange={ this.handleInputChange }
-              />
-            </label>
+          <img src={ triviaImg } alt="Titulo Trivia" className="triviaImg" />
 
-            <label htmlFor="email">
-              Email:
-              <input
-                value={ email }
-                data-testid="input-gravatar-email"
-                type="text"
-                name="email"
-                id="email"
-                onChange={ this.handleInputChange }
-              />
-            </label>
-            <button
-              data-testid="btn-play"
-              disabled={ isDisable }
-              type="button"
-              onClick={ this.handleButtonPlay }
-            >
-              Play
-            </button>
+          <div className="containerInputs">
+            <h2>Login</h2>
 
-            <button
-              data-testid="btn-settings"
-              onClick={ () => {
-                redirectToSettings(name);
-                history.push('/settings');
-              } }
-              type="button"
-            >
-              Settings
-            </button>
+            <div className="userInputs">
+              <label htmlFor="name">
+                <ion-icon name="person-sharp" />
+                <input
+                  value={ name }
+                  data-testid="input-player-name"
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Nome"
+                  onChange={ this.handleInputChange }
+                />
+              </label>
+
+              <label htmlFor="email">
+                <ion-icon name="mail-sharp" />
+                <input
+                  value={ email }
+                  data-testid="input-gravatar-email"
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  onChange={ this.handleInputChange }
+                />
+              </label>
+
+              <div className="userButtons">
+                <button
+                  data-testid="btn-play"
+                  disabled={ isDisable }
+                  type="button"
+                  onClick={ this.handleButtonPlay }
+                >
+                  Play
+                </button>
+
+                <button
+                  data-testid="btn-settings"
+                  onClick={ () => {
+                    redirectToSettings(name);
+                    history.push('/settings');
+                  } }
+                  type="button"
+                >
+                  Settings
+                </button>
+              </div>
+            </div>
           </div>
         </main>
       );
