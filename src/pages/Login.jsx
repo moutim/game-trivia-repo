@@ -27,14 +27,10 @@ class Login extends Component {
     handleButtonPlay = async () => {
       const { name, email } = this.state;
       const { sendToken, sendUser } = this.props;
+      // Agora nossa funcao sendToken ja adiciona o token no localStorage, logo nao precisamos inserir ele por aqui
       await sendToken();
-      const { token } = this.props;
-      console.log(token);
-      localStorage.setItem('token', token);
       sendUser({ name, email });
-      this.setState({
-        redirect: true,
-      });
+      this.setState({ redirect: true });
     }
 
     handleInputChange = ({ target: { value, id } }) => {
@@ -124,13 +120,8 @@ Login.propTypes = {
   }).isRequired,
   redirectToSettings: PropTypes.func.isRequired,
   sendToken: PropTypes.func.isRequired,
-  token: PropTypes.string.isRequired,
   sendUser: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  token: state.token,
-});
 
 const mapDispatchToProps = (dispatch) => ({
   sendToken: () => dispatch(fetchToken()),
@@ -138,4 +129,4 @@ const mapDispatchToProps = (dispatch) => ({
   redirectToSettings: (nameUser) => dispatch(addUser(nameUser)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
