@@ -8,12 +8,12 @@ const requestQuestions = async (token) => {
 };
 
 const fetchQuestionsAPI = async (token) => {
-  const data = requestQuestions(token);
+  const data = await requestQuestions(token);
 
   const expirateCodeToken = 3;
 
   if (data.response_code === expirateCodeToken) {
-    getToken();
+    await getToken();
     const newToken = localStorage.getItem('token');
     const questions = requestQuestions(newToken);
     return questions;

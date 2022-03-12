@@ -61,7 +61,7 @@ class Login extends Component {
 
             <div className="userInputs">
               <label htmlFor="name">
-                <ion-icon name="person-sharp" />
+                Nome
                 <input
                   value={ name }
                   data-testid="input-player-name"
@@ -74,7 +74,7 @@ class Login extends Component {
               </label>
 
               <label htmlFor="email">
-                <ion-icon name="mail-sharp" />
+                Email
                 <input
                   value={ email }
                   data-testid="input-gravatar-email"
