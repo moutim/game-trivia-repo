@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import './Header.css';
 
 class Header extends Component {
     state = {
@@ -24,13 +25,22 @@ class Header extends Component {
       const { name, linkImage } = this.state;
       return (
         <header>
-          <img
-            data-testid="header-profile-picture"
-            src={ linkImage }
-            alt="User avatar Gravatar"
-          />
-          <p data-testid="header-player-name">{ name }</p>
-          <p data-testid="header-score">0</p>
+          <div>
+            <img
+              data-testid="header-profile-picture"
+              src={ linkImage }
+              alt="User avatar Gravatar"
+            />
+            <p data-testid="header-player-name">
+              Jogador:
+              <span className="highlightedText">{ name }</span>
+            </p>
+          </div>
+          <p className="score-points" data-testid="header-score">
+            {'Pontos:'}
+            {' '}
+            <span className="highlightedText">0</span>
+          </p>
         </header>
       );
     }
