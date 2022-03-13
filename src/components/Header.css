@@ -1,15 +1,12 @@
 header {
   align-items: center;
   background-color: white;
-
-  /* background-color: black; */
-
-  /* border-bottom: 1px solid rgba(255, 255, 255, 0.6); */
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   color: white;
   display: flex;
   font-family: monospace;
   justify-content: space-around;
+  padding: 5px;
 }
 
 header div {
@@ -20,10 +17,11 @@ header div {
 header div img {
   border-radius: 50%;
   box-shadow: 0 13px 19px -10px rgba(0, 0, 0, 0.75);
-
-  /* box-shadow: 0 13px 19px -10px rgba(255, 255, 255, 0.3); */
-  margin: 10px 20px;
   width: 70px;
+}
+
+.logoTrivia {
+  width: 250px;
 }
 
 header p {
@@ -31,10 +29,9 @@ header p {
   background-clip: text;
   color: transparent;
   font-size: 30px;
+  margin-left: 10px;
   text-shadow: 0 0 90px rgba(0, 0, 0, 0.99) , 0 0 32px rgba(0, 0, 0, 0.99);
 
-  /* text-shadow: 0 0 90px rgba(170, 170, 170, 0.99) ,
-  0 0 32px rgba(255, 255, 255, 0.5); */
 }
 
 .score-points {

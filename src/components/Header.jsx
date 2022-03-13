@@ -3,6 +3,7 @@ import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './Header.css';
+import logoTrivia from '../trivia.png';
 
 class Header extends Component {
     state = {
@@ -36,6 +37,7 @@ class Header extends Component {
               <span className="highlightedText">{ name }</span>
             </p>
           </div>
+          <img className="logoTrivia" src={ logoTrivia } alt="Logo Trivia" />
           <p className="score-points" data-testid="header-score">
             {'Pontos:'}
             {' '}
