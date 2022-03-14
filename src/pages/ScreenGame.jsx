@@ -10,11 +10,13 @@ class ScreenGame extends Component {
     // questionNumber: 0,
     // questions: [],
     currentQuestion: {},
+    timer: 20,
   }
 
   async componentDidMount() {
     const token = localStorage.getItem('token');
     const { results } = await fetchQuestionsAPI(token);
+    console.log(results);
     this.setState({ currentQuestion: results[0] });
   }
 
@@ -27,7 +29,8 @@ class ScreenGame extends Component {
       question,
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers,
-    } } = this.state;
+      difficulty,
+    }, timer } = this.state;
 
     let questionsArray = [];
     // Quando a aplicacao renderiza pela 1 vez nosso incorrectAnswers e correctAnswer ainda sao 'undefined'
@@ -43,10 +46,13 @@ class ScreenGame extends Component {
           <h1>Perguntas</h1>
           <h2 data-testid="question-category">{ category }</h2>
           <h3 data-testid="question-text">{ question }</h3>
+          <h4>{ difficulty }</h4>
           <div data-testid="answer-options">
             <AlternativeButtons
               shuffleQuestions={ shuffleQuestions }
               correctAnswer={ correctAnswer }
+              timer={ timer }
+              difficulty={ difficulty }
             />
           </div>
         </main>
