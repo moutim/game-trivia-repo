@@ -48,8 +48,7 @@ class ScreenGame extends Component {
     const { currentQuestion: {
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers,
-      difficulty,
-    }, timer } = this.state;
+    } } = this.state;
 
     let questionsArray = [];
     questionsArray = [correctAnswer, ...incorrectAnswers];
@@ -68,6 +67,7 @@ class ScreenGame extends Component {
         category,
         question,
         correct_answer: correctAnswer,
+        difficulty,
       },
       shuffleQuestions,
       isDisabledButton,
