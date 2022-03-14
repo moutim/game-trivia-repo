@@ -9,7 +9,7 @@ class ScreenGame extends Component {
     // Fiz essas duas variaveis ja pensando quando tivermos o botao de 'proxima pergunta'
     // questionNumber: 0,
     // questions: [],
-    currentQuestion: {},
+    currentQuestion: [],
   }
 
   async componentDidMount() {
@@ -33,7 +33,6 @@ class ScreenGame extends Component {
     // Quando a aplicacao renderiza pela 1 vez nosso incorrectAnswers e correctAnswer ainda sao 'undefined'
     // entao aqui faco a verificacao que ele existe antes de popular o array de questoes
     if (incorrectAnswers) questionsArray = [correctAnswer, ...incorrectAnswers];
-
     // Embaralhando o array de questoes
     const shuffleQuestions = this.shuffleQuestions(questionsArray);
     return (
