@@ -34,7 +34,7 @@ class AlternativeButtons extends Component {
     }
 
     render() {
-      const { shuffleQuestions, correctAnswer } = this.props;
+      const { shuffleQuestions, correctAnswer, isDisabledButton } = this.props;
       const { wasClicked } = this.state;
       return (
         <>
@@ -50,6 +50,8 @@ class AlternativeButtons extends Component {
                     className={ wasClicked ? 'correctAnswer' : '' }
                     onClick={ this.handleSelectAnswer }
                     id={ item }
+                    disabled={ isDisabledButton }
+
                   >
                     { item }
                   </button>);
@@ -61,6 +63,8 @@ class AlternativeButtons extends Component {
                   className={ wasClicked ? 'wrongAnswer' : '' }
                   onClick={ this.handleSelectAnswer }
                   id={ item }
+                  disabled={ isDisabledButton }
+
                 >
                   { item }
                 </button>
@@ -82,6 +86,7 @@ AlternativeButtons.propTypes = {
   name: PropTypes.string.isRequired,
   scorePoints: PropTypes.number.isRequired,
   picture: PropTypes.string.isRequired,
+  isDisabledButton: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
