@@ -1,0 +1,43 @@
+header {
+  align-items: center;
+  background-color: rgb(65, 25, 127);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  color: white;
+  display: flex;
+  font-family: monospace;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+header div {
+  align-items: center;
+  display: flex;
+}
+
+header div img {
+  border-radius: 50%;
+  box-shadow: 0 13px 19px -10px rgba(0, 0, 0, 0.75);
+  width: 70px;
+}
+
+.logoTrivia {
+  width: 250px;
+}
+
+header p {
+  background: linear-gradient(0deg, #036b52 5%, #2fc18c 89%);
+  background-clip: text;
+  color: transparent;
+  font-size: 30px;
+  margin-left: 10px;
+  text-shadow: 0 0 90px rgba(255, 255, 255, 0.99) , 0 0 32px rgba(255, 255, 255, 0.99);
+
+}
+
+.score-points {
+  margin-bottom: 1px solid white;
+}
+
+.highlightedText {
+  font-weight: 600;
+}
