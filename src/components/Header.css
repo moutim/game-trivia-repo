@@ -1,6 +1,6 @@
 header {
   align-items: center;
-  background-color: white;
+  background-color: rgb(65, 25, 127);
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   color: white;
   display: flex;
@@ -25,12 +25,12 @@ header div img {
 }
 
 header p {
-  background: linear-gradient(100deg, #41197f 9%, #006dfb 44%, #2fc18c 70%, #036b52 91%);
+  background: linear-gradient(0deg, #036b52 5%, #2fc18c 89%);
   background-clip: text;
   color: transparent;
   font-size: 30px;
   margin-left: 10px;
-  text-shadow: 0 0 90px rgba(0, 0, 0, 0.99) , 0 0 32px rgba(0, 0, 0, 0.99);
+  text-shadow: 0 0 90px rgba(255, 255, 255, 0.99) , 0 0 32px rgba(255, 255, 255, 0.99);
 
 }
 
