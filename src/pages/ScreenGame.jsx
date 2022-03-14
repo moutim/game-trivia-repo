@@ -43,24 +43,19 @@ class ScreenGame extends Component {
   fetchQuestions = async () => {
     const token = localStorage.getItem('token');
     const { results } = await fetchQuestionsAPI(token);
-
     this.setState({ currentQuestion: results[0] });
 
     const { currentQuestion: {
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers,
-    },
-    } = this.state;
+      difficulty,
+    }, timer } = this.state;
 
     let questionsArray = [];
-    /*     // Quando a aplicacao renderiza pela 1 vez nosso incorrectAnswers e correctAnswer ainda sao 'undefined'
-    // entao aqui faco a verificacao que ele existe antes de popular o array de questoes
-    if (incorrectAnswers) */
     questionsArray = [correctAnswer, ...incorrectAnswers];
 
     const shuffleQuestions = this.shuffleQuestions(questionsArray);
 
-    // Embaralhando o array de questoes
     this.setState({ shuffleQuestions });
   }
 
@@ -85,10 +80,13 @@ class ScreenGame extends Component {
           <h1>Perguntas</h1>
           <h2 data-testid="question-category">{ category }</h2>
           <h3 data-testid="question-text">{ question }</h3>
+          <h4>{ difficulty }</h4>
           <div data-testid="answer-options">
             <AlternativeButtons
               shuffleQuestions={ shuffleQuestions }
               correctAnswer={ correctAnswer }
+              timer={ timer }
+              difficulty={ difficulty }
               isDisabledButton={ isDisabledButton }
             />
           </div>
