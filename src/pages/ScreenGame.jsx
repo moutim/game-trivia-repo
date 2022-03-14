@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import arrayShuffle from 'array-shuffle';
 import Header from '../components/Header';
 import fetchQuestionsAPI from '../services/questionsAPI';
+import AlternativeButtons from '../components/AlternativeButtons';
 
 class ScreenGame extends Component {
   state = {
@@ -43,29 +44,10 @@ class ScreenGame extends Component {
           <h2 data-testid="question-category">{ category }</h2>
           <h3 data-testid="question-text">{ question }</h3>
           <div data-testid="answer-options">
-            {
-              shuffleQuestions.map((item, index) => {
-                // Verifica se o item atual é igual a correctAnswer para colocar o datatestId correto
-                if (item === correctAnswer) {
-                  return (
-                    <button
-                      key={ item }
-                      data-testid="correct-answer"
-                      type="button"
-                    >
-                      { item }
-                    </button>);
-                } return (
-                  <button
-                    key={ item }
-                    data-testid={ `wrong-answer-${index}` }
-                    type="button"
-                  >
-                    { item }
-                  </button>
-                );
-              })
-            }
+            <AlternativeButtons
+              shuffleQuestions={ shuffleQuestions }
+              correctAnswer={ correctAnswer }
+            />
           </div>
         </main>
       </>
