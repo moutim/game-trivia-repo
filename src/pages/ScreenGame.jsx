@@ -46,18 +46,19 @@ class ScreenGame extends Component {
     const { results } = await fetchQuestionsAPI(token);
     this.setState({ currentQuestion: results[0], questions: results });
 
-    const { currentQuestion: {
-      correct_answer: correctAnswer,
-      incorrect_answers: incorrectAnswers,
-    } } = this.state;
 
-    let questionsArray = [];
-    questionsArray = [correctAnswer, ...incorrectAnswers];
+      const { currentQuestion: {
+        correct_answer: correctAnswer,
+        incorrect_answers: incorrectAnswers,
+      } } = this.state;
 
-    const shuffleQuestions = this.shuffleQuestions(questionsArray);
+      let questionsArray = [];
+      questionsArray = [correctAnswer, ...incorrectAnswers];
 
-    this.setState({ shuffleQuestions });
-  }
+      const shuffleQuestions = this.shuffleQuestions(questionsArray);
+
+      this.setState({ shuffleQuestions });
+    }
 
   handleButtonNextShow = () => {
     this.setState({
@@ -79,16 +80,13 @@ class ScreenGame extends Component {
     if (questionNumber === lastQuestion) return history.push('/feedback');
     const plus1 = questionNumber + 1;
 
-    const {
+    const { 
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers,
     } = questions[plus1];
 
     const questionsArray = [correctAnswer, ...incorrectAnswers];
-    console.log(questionsArray);
-
     const shuffleQuestions = this.shuffleQuestions(questionsArray);
-    console.log(shuffleQuestions);
 
     this.setState({
       shuffleQuestions,
