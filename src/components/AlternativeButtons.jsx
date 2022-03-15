@@ -21,7 +21,7 @@ class AlternativeButtons extends Component {
         difficulty, timer,
         sendScore, sendAssertions,
         buttonNextShow,
-        isClicked
+        isClicked,
       } = this.props;
       let score = 0;
       if (correctAnswer === id) {
@@ -32,14 +32,18 @@ class AlternativeButtons extends Component {
       const { name, scorePoints, picture } = this.props;
       const playerInfo = [{ name, score: scorePoints, picture }];
       localStorage.setItem('ranking', JSON.stringify(playerInfo));
-      this.setState({ wasClicked: true });
-      
+
       isClicked();
       buttonNextShow();
     }
 
     render() {
-      const { shuffleQuestions, correctAnswer, isDisabledButton, wasClicked } = this.props;
+      const {
+        shuffleQuestions,
+        correctAnswer,
+        isDisabledButton,
+        wasClicked,
+      } = this.props;
       return (
         <>
           {
