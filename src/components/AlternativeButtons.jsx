@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './AlternativeButtons.css';
+import { connect } from 'react-redux';
+import alternativeAction from '../redux/actions/actionQuestions';
 
 class AlternativeButtons extends Component {
     state = {
@@ -9,64 +11,59 @@ class AlternativeButtons extends Component {
     }
 
     handleSelectAnswer = () => {
-      this.setState({ wasClicked: true, theButtonClassActive: 'show' });
+      this.setState({
+        wasClicked: true,
+        theButtonClassActive: 'show',
+      });
     }
 
-    // handleButtonNext = () => {
-
-    // }
-
     render() {
-      const { shuffleQuestions, correctAnswer } = this.props;
+      const { shuffleQuestions, correctAnswer, wasSelected } = this.props;
       const { wasClicked, theButtonClassActive } = this.state;
+      if (wasClicked) wasSelected(theButtonClassActive);
       return (
         <>
-          <div>
 
-            {
-              shuffleQuestions.map((item, index) => {
-                // Verifica se o item atual é igual a correctAnswer para colocar o datatestId correto
-                if (item === correctAnswer) {
-                  return (
-                    <button
-                      key={ item }
-                      data-testid="correct-answer"
-                      type="button"
-                      className={ wasClicked ? 'correctAnswer' : '' }
-                      onClick={ this.handleSelectAnswer }
-                    >
-                      { item }
-                    </button>);
-                } return (
+          {
+            shuffleQuestions.map((item, index) => {
+              // Verifica se o item atual é igual a correctAnswer para colocar o datatestId correto
+              if (item === correctAnswer) {
+                return (
                   <button
                     key={ item }
-                    data-testid={ `wrong-answer-${index}` }
+                    data-testid="correct-answer"
                     type="button"
-                    className={ wasClicked ? 'wrongAnswer' : '' }
+                    className={ wasClicked ? 'correctAnswer' : '' }
                     onClick={ this.handleSelectAnswer }
                   >
                     { item }
-                  </button>
-                );
-              })
-            }
-          </div>
-          <button
-            type="submit"
-            data-testid="btn-next"
-            className={ theButtonClassActive }
-            // onClick={ this.handleButtonNext() }
-          >
-            Next
-          </button>
+                  </button>);
+              } return (
+                <button
+                  key={ item }
+                  data-testid={ `wrong-answer-${index}` }
+                  type="button"
+                  className={ wasClicked ? 'wrongAnswer' : '' }
+                  onClick={ this.handleSelectAnswer }
+                >
+                  { item }
+                </button>
+              );
+            })
+          }
         </>
       );
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  wasSelected: (classButton) => dispatch(alternativeAction(classButton)),
+});
+
 AlternativeButtons.propTypes = {
   shuffleQuestions: PropTypes.arrayOf.isRequired,
   correctAnswer: PropTypes.string.isRequired,
+  wasSelected: PropTypes.func.isRequired,
 };
 
-export default AlternativeButtons;
+export default connect(null, mapDispatchToProps)(AlternativeButtons);
