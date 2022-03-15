@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import fetchToken from '../redux/actions/tokenAction';
 import addUser from '../redux/actions/actionUser';
+import { addPlayer } from '../redux/actions/playerAction';
 import triviaImg from '../trivia.png';
 import './Login.css';
 
@@ -26,10 +27,11 @@ class Login extends Component {
 
     handleButtonPlay = async () => {
       const { name, email } = this.state;
-      const { sendToken, sendUser } = this.props;
+      const { sendToken, sendUser, sendPlayer } = this.props;
       // Agora nossa funcao sendToken ja adiciona o token no localStorage, logo nao precisamos inserir ele por aqui
       await sendToken();
       sendUser({ name, email });
+      sendPlayer({ name, email });
       this.setState({ redirect: true });
     }
 
@@ -121,11 +123,13 @@ Login.propTypes = {
   redirectToSettings: PropTypes.func.isRequired,
   sendToken: PropTypes.func.isRequired,
   sendUser: PropTypes.func.isRequired,
+  sendPlayer: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   sendToken: () => dispatch(fetchToken()),
   sendUser: (infoUser) => dispatch(addUser(infoUser)),
+  sendPlayer: (infoPlayer) => dispatch(addPlayer(infoPlayer)),
   redirectToSettings: (nameUser) => dispatch(addUser(nameUser)),
 });
 
