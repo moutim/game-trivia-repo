@@ -18,7 +18,6 @@ class Header extends Component {
 
     fetchInfoGravatar = async () => {
       const { reducerLogin: { email, name }, sendPictureGravatar } = this.props;
-      console.log(this.props);
       const hash = md5(email).toString();
       const linkImage = `https://www.gravatar.com/avatar/${hash}`;
       sendPictureGravatar(linkImage);

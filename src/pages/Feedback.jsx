@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
 class Feedback extends Component {
@@ -14,7 +15,7 @@ class Feedback extends Component {
     const { assertions } = this.props;
 
     if (assertions < than3) feedBackMessage = 'Could be better...';
-    if (assertions > than3) feedBackMessage = 'Well Done!';
+    if (assertions >= than3) feedBackMessage = 'Well Done!';
 
     this.setState({ feedBackMessage });
   }
@@ -33,13 +34,19 @@ class Feedback extends Component {
           </h3>
 
           <h3>
-            {`Voce acertou ${assertions} perguntas, ${feedBackMessage}`}
+            {`Voce acertou ${assertions} perguntas, `}
+            <span data-testid="feedback-text">{ feedBackMessage }</span>
           </h3>
         </main>
       </>
     );
   }
 }
+
+Feedback.propTypes = {
+  assertions: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   score: state.player.score,
