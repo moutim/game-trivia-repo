@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import arrayShuffle from 'array-shuffle';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import fetchQuestionsAPI from '../services/questionsAPI';
 import AlternativeButtons from '../components/AlternativeButtons';
@@ -11,7 +9,9 @@ class ScreenGame extends Component {
     // Fiz essas duas variaveis ja pensando quando tivermos o botao de 'proxima pergunta'
     questionNumber: 0,
     questions: [],
-    currentQuestion: [],
+    currentQuestion: {},
+    isShow: false,
+    wasClicked: false,
   }
 
   async componentDidMount() {
@@ -21,30 +21,44 @@ class ScreenGame extends Component {
     this.setState({ currentQuestion: results[questionNumber], questions: results });
   }
 
+  handleButtonNextShow = () => {
+    this.setState({
+      isShow: true,
+    });
+  }
+
+  isClicked = () => {
+    this.setState({
+      wasClicked: true,
+    });
+  }
+
   handleButtonNextQuestion = () => {
     const { questions, questionNumber } = this.state;
     this.setState({
-      currentQuestion: questions[questionNumber + 1] });
+      currentQuestion: questions[questionNumber + 1],
+      wasClicked: false,
+      isShow: false,
+    });
   }
 
   // ref: https://www.npmjs.com/package/array-shuffle
   shuffleQuestions = (array) => arrayShuffle(array);
 
   render() {
-    const { classButton } = this.props;
+    // const { isShow } = this.state;
     const { currentQuestion: {
       category,
       question,
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers,
-    } } = this.state;
+    }, isShow, wasClicked } = this.state;
 
     let questionsArray = [];
     // Quando a aplicacao renderiza pela 1 vez nosso incorrectAnswers e correctAnswer ainda sao 'undefined'
     // entao aqui faco a verificacao que ele existe antes de popular o array de questoes
     if (incorrectAnswers) questionsArray = [correctAnswer, ...incorrectAnswers];
     // Embaralhando o array de questoes
-    console.log(questionsArray);
     const shuffleQuestions = this.shuffleQuestions(questionsArray);
 
     return (
@@ -56,14 +70,18 @@ class ScreenGame extends Component {
           <h3 data-testid="question-text">{ question }</h3>
           <div data-testid="answer-options">
             <AlternativeButtons
+              wasClicked={ wasClicked }
+              isClicked={ this.isClicked }
+              buttonNextShow={ this.handleButtonNextShow }
               shuffleQuestions={ shuffleQuestions }
               correctAnswer={ correctAnswer }
             />
           </div>
           {
-            classButton === 'show' && (
+            isShow && (
               <button
                 type="button"
+                className={ isShow ? 'show' : 'hide' }
                 onClick={ this.handleButtonNextQuestion }
               >
                 Next
@@ -75,12 +93,4 @@ class ScreenGame extends Component {
   }
 }
 
-ScreenGame.propTypes = {
-  classButton: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  classButton: state.reducerClicked.classButton,
-});
-
-export default connect(mapStateToProps)(ScreenGame);
+export default ScreenGame;

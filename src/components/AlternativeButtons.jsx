@@ -1,26 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './AlternativeButtons.css';
-import { connect } from 'react-redux';
-import alternativeAction from '../redux/actions/actionQuestions';
+// import { connect } from 'react-redux';
+// import alternativeAction from '../redux/actions/actionQuestions';
 
 class AlternativeButtons extends Component {
-    state = {
-      wasClicked: false,
-      theButtonClassActive: 'hide',
-    }
-
     handleSelectAnswer = () => {
-      this.setState({
-        wasClicked: true,
-        theButtonClassActive: 'show',
-      });
+      const { buttonNextShow, isClicked } = this.props;
+      isClicked();
+      buttonNextShow();
     }
 
     render() {
-      const { shuffleQuestions, correctAnswer, wasSelected } = this.props;
-      const { wasClicked, theButtonClassActive } = this.state;
-      if (wasClicked) wasSelected(theButtonClassActive);
+      const { shuffleQuestions, correctAnswer, wasClicked } = this.props;
       return (
         <>
 
@@ -56,14 +48,16 @@ class AlternativeButtons extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  wasSelected: (classButton) => dispatch(alternativeAction(classButton)),
-});
-
 AlternativeButtons.propTypes = {
-  shuffleQuestions: PropTypes.arrayOf.isRequired,
-  correctAnswer: PropTypes.string.isRequired,
-  wasSelected: PropTypes.func.isRequired,
+  shuffleQuestions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  correctAnswer: PropTypes.string,
+  buttonNextShow: PropTypes.func.isRequired,
+  isClicked: PropTypes.func.isRequired,
+  wasClicked: PropTypes.bool.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(AlternativeButtons);
+AlternativeButtons.defaultProps = {
+  correctAnswer: '',
+};
+
+export default AlternativeButtons;
