@@ -27,7 +27,6 @@ class Header extends Component {
     render() {
       const { name, linkImage } = this.state;
       const { player: { score } } = this.props;
-      console.log(score);
       return (
         <header>
           <div>
@@ -46,11 +45,10 @@ class Header extends Component {
           <img className="logoTrivia" src={ logoTrivia } alt="Logo Trivia" />
           <p
             className="score-points"
-            data-testid="header-score"
           >
             {'Pontos:'}
             {' '}
-            <span className="highlightedText">{ score }</span>
+            <span className="highlightedText" data-testid="header-score">{ score }</span>
           </p>
         </header>
       );

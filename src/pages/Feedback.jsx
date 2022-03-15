@@ -30,11 +30,15 @@ class Feedback extends Component {
           <h2>Feedback sobre sua partida de Trivia</h2>
 
           <h3>
-            {`Nessa partida voce fez ${score} pontos!`}
+            {'Nessa partida você fez '}
+            <span data-testid="feedback-total-score">{ score }</span>
+            {' pontos!'}
           </h3>
 
           <h3>
-            {`Voce acertou ${assertions} perguntas, `}
+            {'Você acertou '}
+            <span data-testid="feedback-total-question">{ assertions }</span>
+            {' perguntas, '}
             <span data-testid="feedback-text">{ feedBackMessage }</span>
           </h3>
 
