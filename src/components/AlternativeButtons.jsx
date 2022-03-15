@@ -18,11 +18,13 @@ class AlternativeButtons extends Component {
     handleSelectAnswer = ({ target: { id } }) => {
       const {
         correctAnswer,
-        difficulty, timer,
-        sendScore, sendAssertions,
-        buttonNextShow,
-        isClicked,
+        difficulty,
+        timer,
+        sendScore,
+        sendAssertions,
+        answerWasClicked,
       } = this.props;
+
       let score = 0;
       if (correctAnswer === id) {
         score = this.formulaScore(difficulty, timer);
@@ -33,8 +35,7 @@ class AlternativeButtons extends Component {
       const playerInfo = [{ name, scorePoints, picture }];
       localStorage.setItem('ranking', JSON.stringify(playerInfo));
 
-      isClicked();
-      buttonNextShow();
+      answerWasClicked();
     }
 
     render() {
@@ -93,8 +94,7 @@ AlternativeButtons.propTypes = {
   scorePoints: PropTypes.number.isRequired,
   picture: PropTypes.string.isRequired,
   isDisabledButton: PropTypes.bool.isRequired,
-  buttonNextShow: PropTypes.func.isRequired,
-  isClicked: PropTypes.func.isRequired,
+  answerWasClicked: PropTypes.func.isRequired,
   wasClicked: PropTypes.bool.isRequired,
 };
 

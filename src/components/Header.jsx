@@ -18,7 +18,6 @@ class Header extends Component {
 
     fetchInfoGravatar = async () => {
       const { reducerLogin: { email, name }, sendPictureGravatar } = this.props;
-      console.log(this.props);
       const hash = md5(email).toString();
       const linkImage = `https://www.gravatar.com/avatar/${hash}`;
       sendPictureGravatar(linkImage);
@@ -28,7 +27,6 @@ class Header extends Component {
     render() {
       const { name, linkImage } = this.state;
       const { player: { score } } = this.props;
-      console.log(score);
       return (
         <header>
           <div>
