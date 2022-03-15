@@ -30,7 +30,7 @@ class AlternativeButtons extends Component {
         sendAssertions();
       }
       const { name, scorePoints, picture } = this.props;
-      const playerInfo = [{ name, scorePoints, picture }];
+      const playerInfo = [{ name, score: scorePoints, picture }];
       localStorage.setItem('ranking', JSON.stringify(playerInfo));
       this.setState({ wasClicked: true });
       

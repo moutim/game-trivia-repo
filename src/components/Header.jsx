@@ -18,7 +18,6 @@ class Header extends Component {
 
     fetchInfoGravatar = async () => {
       const { reducerLogin: { email, name }, sendPictureGravatar } = this.props;
-      console.log(this.props);
       const hash = md5(email).toString();
       const linkImage = `https://www.gravatar.com/avatar/${hash}`;
       sendPictureGravatar(linkImage);
@@ -37,13 +36,18 @@ class Header extends Component {
               src={ linkImage }
               alt="User avatar Gravatar"
             />
-            <p data-testid="header-player-name">
+            <p
+              data-testid="header-player-name"
+            >
               Jogador:
               <span className="highlightedText">{ name }</span>
             </p>
           </div>
           <img className="logoTrivia" src={ logoTrivia } alt="Logo Trivia" />
-          <p className="score-points" data-testid="header-score">
+          <p
+            className="score-points"
+            data-testid="header-score"
+          >
             {'Pontos:'}
             {' '}
             <span className="highlightedText">{ score }</span>
