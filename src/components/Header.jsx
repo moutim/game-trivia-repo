@@ -27,7 +27,6 @@ class Header extends Component {
     render() {
       const { name, linkImage } = this.state;
       const { player: { score } } = this.props;
-      console.log(score);
       return (
         <header>
           <div>

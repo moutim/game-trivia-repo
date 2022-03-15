@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import arrayShuffle from 'array-shuffle';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import fetchQuestionsAPI from '../services/questionsAPI';
 import AlternativeButtons from '../components/AlternativeButtons';
@@ -24,27 +25,27 @@ class ScreenGame extends Component {
   countdown = () => {
     const { isDisabledButton, timer } = this.state;
     const ONE_SECOND = 1000;
+    const THIRTY_SECONDS = 30000;
 
-    const intervalTime = () => {
+    const intervalTime = setInterval(() => {
       if (isDisabledButton === false && timer > 0) {
         this.setState((prevState) => ({
           timer: prevState.timer - 1,
         }));
       }
-    };
+    }, ONE_SECOND);
 
-    setInterval(intervalTime, ONE_SECOND);
-
-    const THIRTY_SECONDS = 30000;
     setTimeout(() => {
       this.setState({ isDisabledButton: true });
+      clearInterval(intervalTime);
     }, THIRTY_SECONDS);
   }
 
-    fetchQuestions = async () => {
-      const token = localStorage.getItem('token');
-      const { results } = await fetchQuestionsAPI(token);
-      this.setState({ currentQuestion: results[0], questions: results });
+  fetchQuestions = async () => {
+    const token = localStorage.getItem('token');
+    const { results } = await fetchQuestionsAPI(token);
+    this.setState({ currentQuestion: results[0], questions: results });
+
 
       const { currentQuestion: {
         correct_answer: correctAnswer,
@@ -65,31 +66,36 @@ class ScreenGame extends Component {
     });
   }
 
-  isClicked = () => {
+  answerWasClicked = () => {
     this.setState({
       wasClicked: true,
+      isShow: true,
     });
   }
 
   handleButtonNextQuestion = () => {
     const { questions, questionNumber } = this.state;
-    this.setState({
-      currentQuestion: questions[questionNumber + 1],
-      wasClicked: false,
-      isShow: false,
-    });
+    const { history } = this.props;
+    const lastQuestion = 4;
+    if (questionNumber === lastQuestion) return history.push('/feedback');
+    const plus1 = questionNumber + 1;
 
-    const { currentQuestion: {
+    const { 
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers,
-    } } = this.state;
+    } = questions[plus1];
 
-    let questionsArray = [];
-    questionsArray = [correctAnswer, ...incorrectAnswers];
-
+    const questionsArray = [correctAnswer, ...incorrectAnswers];
     const shuffleQuestions = this.shuffleQuestions(questionsArray);
 
-    this.setState({ shuffleQuestions });
+    this.setState({
+      shuffleQuestions,
+      currentQuestion: questions[plus1],
+      wasClicked: false,
+      isShow: false,
+      questionNumber: plus1,
+      timer: 30,
+    });
   }
 
   // ref: https://www.npmjs.com/package/array-shuffle
@@ -107,10 +113,12 @@ class ScreenGame extends Component {
       wasClicked,
       shuffleQuestions,
       isDisabledButton,
-      timer } = this.state;
+      timer,
+    } = this.state;
 
     return (
       <>
+        {/* { questionNumber === redirectInPosition && <Redirect to="/feedback" /> } */}
         <Header />
         <main>
           <h1>Perguntas</h1>
@@ -120,8 +128,7 @@ class ScreenGame extends Component {
           <div data-testid="answer-options">
             <AlternativeButtons
               wasClicked={ wasClicked }
-              isClicked={ this.isClicked }
-              buttonNextShow={ this.handleButtonNextShow }
+              answerWasClicked={ this.answerWasClicked }
               shuffleQuestions={ shuffleQuestions }
               correctAnswer={ correctAnswer }
               timer={ timer }
@@ -135,18 +142,25 @@ class ScreenGame extends Component {
                 type="button"
                 className={ isShow ? 'show' : 'hide' }
                 onClick={ this.handleButtonNextQuestion }
+                data-testid="btn-next"
               >
                 Next
               </button>)
           }
           <h3>
             Tempo:
-            { timer < 0 ? '0' : timer }
+            { timer }
           </h3>
         </main>
       </>
     );
   }
 }
+
+ScreenGame.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default ScreenGame;
