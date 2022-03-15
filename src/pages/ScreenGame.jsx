@@ -40,25 +40,24 @@ class ScreenGame extends Component {
       this.setState({ isDisabledButton: true });
     }, THIRTY_SECONDS);
   }
-  
-  
+
     fetchQuestions = async () => {
-    const token = localStorage.getItem('token');
-    const { results } = await fetchQuestionsAPI(token);
-    this.setState({ currentQuestion: results[0], questions: results });
+      const token = localStorage.getItem('token');
+      const { results } = await fetchQuestionsAPI(token);
+      this.setState({ currentQuestion: results[0], questions: results });
 
-    const { currentQuestion: {
-      correct_answer: correctAnswer,
-      incorrect_answers: incorrectAnswers,
-    } } = this.state;
+      const { currentQuestion: {
+        correct_answer: correctAnswer,
+        incorrect_answers: incorrectAnswers,
+      } } = this.state;
 
-    let questionsArray = [];
-    questionsArray = [correctAnswer, ...incorrectAnswers];
+      let questionsArray = [];
+      questionsArray = [correctAnswer, ...incorrectAnswers];
 
-    const shuffleQuestions = this.shuffleQuestions(questionsArray);
+      const shuffleQuestions = this.shuffleQuestions(questionsArray);
 
-    this.setState({ shuffleQuestions });
-  }
+      this.setState({ shuffleQuestions });
+    }
 
   handleButtonNextShow = () => {
     this.setState({
@@ -79,7 +78,7 @@ class ScreenGame extends Component {
       wasClicked: false,
       isShow: false,
     });
-    
+
     const { currentQuestion: {
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers,
@@ -102,7 +101,6 @@ class ScreenGame extends Component {
         category,
         question,
         correct_answer: correctAnswer,
-        incorrect_answers: incorrectAnswers,
         difficulty,
       },
       isShow,
