@@ -23,8 +23,6 @@ class AlternativeButtons extends Component {
         sendScore,
         sendAssertions,
         answerWasClicked,
-        buttonNextShow,
-        isClicked,
       } = this.props;
 
       let score = 0;
@@ -37,8 +35,6 @@ class AlternativeButtons extends Component {
       const playerInfo = [{ name, score: scorePoints, picture }];
       localStorage.setItem('ranking', JSON.stringify(playerInfo));
 
-      isClicked();
-      buttonNextShow();
       answerWasClicked();
     }
 
@@ -60,7 +56,7 @@ class AlternativeButtons extends Component {
                     key={ item }
                     data-testid="correct-answer"
                     type="button"
-                    className={ wasClicked ? 'correctAnswer' : '' }
+                    className={ wasClicked ? 'correctAnswer' : 'alternativeButton' }
                     onClick={ this.handleSelectAnswer }
                     id={ item }
                     disabled={ isDisabledButton }
@@ -73,7 +69,7 @@ class AlternativeButtons extends Component {
                   key={ item }
                   data-testid={ `wrong-answer-${index}` }
                   type="button"
-                  className={ wasClicked ? 'wrongAnswer' : '' }
+                  className={ wasClicked ? 'wrongAnswer' : 'alternativeButton' }
                   onClick={ this.handleSelectAnswer }
                   id={ item }
                   disabled={ isDisabledButton }

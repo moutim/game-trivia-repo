@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import fetchQuestionsAPI from '../services/questionsAPI';
 import AlternativeButtons from '../components/AlternativeButtons';
+import './ScreenGame.css';
 
 class ScreenGame extends Component {
   state = {
@@ -113,43 +114,47 @@ class ScreenGame extends Component {
       shuffleQuestions,
       isDisabledButton,
       timer,
+      questionNumber,
     } = this.state;
 
     return (
       <>
-        {/* { questionNumber === redirectInPosition && <Redirect to="/feedback" /> } */}
         <Header />
         <main>
-          <h1>Perguntas</h1>
-          <h2 data-testid="question-category">{ category }</h2>
-          <h3 data-testid="question-text">{ question }</h3>
-          <h4>{ difficulty }</h4>
-          <div data-testid="answer-options">
-            <AlternativeButtons
-              wasClicked={ wasClicked }
-              answerWasClicked={ this.answerWasClicked }
-              shuffleQuestions={ shuffleQuestions }
-              correctAnswer={ correctAnswer }
-              timer={ timer }
-              difficulty={ difficulty }
-              isDisabledButton={ isDisabledButton }
-            />
-          </div>
-          {
-            isShow && (
-              <button
-                type="button"
-                className={ isShow ? 'show' : 'hide' }
-                onClick={ this.handleButtonNextQuestion }
-                data-testid="btn-next"
-              >
-                Next
-              </button>)
-          }
-          <h3>
-            Tempo:
-            { timer }
-          </h3>
+
+          <section className="card">
+            <h1>{`Pergunta número ${questionNumber + 1}`}</h1>
+            <h2 data-testid="question-category">{ `Categoria: ${category}` }</h2>
+            <h4>{ `Dificuldade: ${difficulty}` }</h4>
+            <h3 data-testid="question-text">{ question }</h3>
+            <div className="alternative-box" data-testid="answer-options">
+              <AlternativeButtons
+                wasClicked={ wasClicked }
+                answerWasClicked={ this.answerWasClicked }
+                shuffleQuestions={ shuffleQuestions }
+                correctAnswer={ correctAnswer }
+                timer={ timer }
+                difficulty={ difficulty }
+                isDisabledButton={ isDisabledButton }
+              />
+            </div>
+            {
+              isShow && (
+                <button
+                  type="button"
+                  className={ isShow ? 'show' : 'hide' }
+                  onClick={ this.handleButtonNextQuestion }
+                  data-testid="btn-next"
+                >
+                  Next
+                </button>)
+            }
+            <h3>
+              Tempo:
+              { timer }
+            </h3>
+          </section>
+
         </main>
       </>
     );
