@@ -23,8 +23,8 @@ class AlternativeButtons extends Component {
         sendScore,
         sendAssertions,
         answerWasClicked,
-        buttonNextShow,
-        isClicked,
+        // buttonNextShow,
+        // isClicked,
       } = this.props;
 
       let score = 0;
@@ -37,8 +37,8 @@ class AlternativeButtons extends Component {
       const playerInfo = [{ name, score: scorePoints, picture }];
       localStorage.setItem('ranking', JSON.stringify(playerInfo));
 
-      isClicked();
-      buttonNextShow();
+      // isClicked();
+      // buttonNextShow();
       answerWasClicked();
     }
 
