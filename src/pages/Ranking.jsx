@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
+import { connect } from 'react-redux';
 
 class Ranking extends Component {
-  render() {
+  handleButtonPlayAgain = () => {
     const { history } = this.props;
+    history.push('/');
+  }
+
+  render() {
+    const rankingUser = JSON.parse(localStorage.getItem('ranking'));
     return (
       <>
-        <Header />
+
         <h1 data-testid="ranking-title">Ranking</h1>
+        {
+          rankingUser.map((rank, index) => (
+
+            <ul key={ index }>
+              <img src={ rank.picture } alt="User from Gravatar" />
+              <p data-testid={ `player-name-${index}` }>{ rank.name }</p>
+              <span data-testid={ `player-score-${index}` }>{ rank.score }</span>
+            </ul>
+          ))
+        }
         <button
           type="button"
           data-testid="btn-go-home"
-          onClick={ () => {
-            history.push('/');
-          } }
+          onClick={ this.handleButtonPlayAgain }
         >
           Voltar à Tela inicial
         </button>
@@ -28,4 +41,10 @@ Ranking.propTypes = {
     push: PropTypes.func }).isRequired,
 };
 
-export default Ranking;
+const mapStateToProps = (state) => ({
+  name: state.player.name,
+  score: state.player.score,
+  picture: state.player.pictureGravatar,
+});
+
+export default connect(mapStateToProps)(Ranking);
