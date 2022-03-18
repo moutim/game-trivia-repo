@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import fetchQuestionsAPI from '../services/questionsAPI';
 import AlternativeButtons from '../components/AlternativeButtons';
 import './ScreenGame.css';
+import QuestionInfo from '../components/QuestionInfo';
+import Timer from '../components/Timer';
 
 class ScreenGame extends Component {
   state = {
@@ -87,7 +89,7 @@ class ScreenGame extends Component {
 
     const questionsArray = [correctAnswer, ...incorrectAnswers];
     const shuffleQuestions = this.shuffleQuestions(questionsArray);
-
+    // this.countdown();
     this.setState({
       shuffleQuestions,
       currentQuestion: questions[plus1],
@@ -116,16 +118,20 @@ class ScreenGame extends Component {
       timer,
       questionNumber,
     } = this.state;
-
+    console.log(timer);
     return (
       <>
         <Header />
         <main>
 
           <section className="card">
-            <h1>{`Pergunta número ${questionNumber + 1}`}</h1>
-            <h2 data-testid="question-category">{ `Categoria: ${category}` }</h2>
-            <h4>{ `Dificuldade: ${difficulty}` }</h4>
+            <div className="container-info">
+              <QuestionInfo
+                questionNumber={ questionNumber }
+                category={ category }
+                difficulty={ difficulty }
+              />
+            </div>
             <h3 data-testid="question-text">{ question }</h3>
             <div className="alternative-box" data-testid="answer-options">
               <AlternativeButtons
@@ -138,21 +144,21 @@ class ScreenGame extends Component {
                 isDisabledButton={ isDisabledButton }
               />
             </div>
-            {
-              isShow && (
-                <button
-                  type="button"
-                  className={ isShow ? 'show' : 'hide' }
-                  onClick={ this.handleButtonNextQuestion }
-                  data-testid="btn-next"
-                >
-                  Next
-                </button>)
-            }
-            <h3>
-              Tempo:
-              { timer }
-            </h3>
+            <div className="container-timer">
+              <Timer timer={ timer } />
+              {
+                isShow || timer === 0 ? (
+                  <button
+                    type="button"
+                    onClick={ this.handleButtonNextQuestion }
+                    className="buttonNext"
+                    data-testid="btn-next"
+                  >
+                    Next
+                  </button>)
+                  : false
+              }
+            </div>
           </section>
 
         </main>

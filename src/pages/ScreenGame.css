@@ -2,11 +2,15 @@
   align-items: center;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.25);
+  color: black;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: 35px auto 0;
+  padding: 10px;
+  text-align: center;
   transition: 0.7s;
-  width: 50%;
+  width: 45%;
 }
 
 .card:hover {
@@ -14,16 +18,18 @@
 }
 
 .card h1 {
-  font-size: 35px;
-  margin-bottom: 15px;
+  font-size: 30px;
 }
 
-.card h2, h3, h4 {
+.card h2, h4 {
   font-size: 20px;
+  font-weight: 500;
 }
 
 .card h3 {
+  font-size: 30px;
   margin-top: 15px;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .alternative-box {
@@ -31,4 +37,31 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 30px;
+}
+
+.container-info {
+  text-align: center;
+}
+
+.container-timer {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px 0;
+}
+
+.buttonNext {
+  background-color: #2fc18c;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  height: 50px;
+  width: 150px;
+}
+
+.buttonNext:hover {
+  cursor: pointer;
 }

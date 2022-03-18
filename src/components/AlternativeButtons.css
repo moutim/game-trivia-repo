@@ -6,21 +6,20 @@
   color: white;
   font-size: 20px;
   margin: 10px;
-  padding: 75px 65px;
+  padding: 75px 45px;
   transition: 0.5s;
   width: 45%;
 }
 
 .alternativeButton:hover {
   box-shadow: 0 0 20px 0 rgb(6, 240, 15);
+  cursor: pointer;
 }
 
 .correctAnswer {
-  border: 3px solid rgb(6, 240, 15);
   box-shadow: 0 0 20px 0 rgb(6, 240, 15);
 }
 
 .wrongAnswer {
-  border: 3px solid red;
   box-shadow: 0 0 20px 0 red;
 }
