@@ -65,3 +65,12 @@
 .buttonNext:hover {
   cursor: pointer;
 }
+
+.arrow {
+  font-size: 35px;
+  transition: 0.5s;
+}
+
+.arrow:hover {
+  font-size: 43px;
+}

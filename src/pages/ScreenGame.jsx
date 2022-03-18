@@ -27,20 +27,23 @@ class ScreenGame extends Component {
 
   countdown = () => {
     const { isDisabledButton, timer } = this.state;
-    const ONE_SECOND = 1000;
     const THIRTY_SECONDS = 30000;
+    const ONE_SECOND = 1000;
 
     const intervalTime = setInterval(() => {
       if (isDisabledButton === false && timer > 0) {
         this.setState((prevState) => ({
           timer: prevState.timer - 1,
+          isDisabledButton: false,
         }));
       }
     }, ONE_SECOND);
 
     setTimeout(() => {
-      this.setState({ isDisabledButton: true });
-      clearInterval(intervalTime);
+      if (timer === 0) {
+        this.setState({ isDisabledButton: true });
+        clearInterval(intervalTime);
+      }
     }, THIRTY_SECONDS);
   }
 
@@ -154,7 +157,7 @@ class ScreenGame extends Component {
                     className="buttonNext"
                     data-testid="btn-next"
                   >
-                    Next
+                    <i className="arrow fa-solid fa-right-long" />
                   </button>)
                   : false
               }
