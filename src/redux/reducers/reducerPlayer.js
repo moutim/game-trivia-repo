@@ -3,6 +3,7 @@ import {
   SEND_ASSERTIONS,
   ADD_USER,
   SEND_PICTURE_GRAVATAR,
+  CLEAR_SCORE,
 } from '../actions/actionsType';
 
 const initialState = {
@@ -35,6 +36,11 @@ const player = (state = initialState, action) => {
     return {
       ...state,
       assertions: state.assertions + 1,
+    };
+  case CLEAR_SCORE:
+    return {
+      ...state,
+      score: action.payload,
     };
   default:
     return state;
