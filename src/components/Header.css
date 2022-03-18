@@ -25,9 +25,10 @@ header div img {
 }
 
 header p {
-  background: linear-gradient(0deg, #036b52 5%, #2fc18c 89%);
+  /* background: linear-gradient(0deg, #036b52 5%, #2fc18c 89%);
   background-clip: text;
-  color: transparent;
+  color: transparent; */
+  color: white;
   font-size: 30px;
   margin-left: 10px;
   text-shadow: 0 0 90px rgba(255, 255, 255, 0.99) , 0 0 32px rgba(255, 255, 255, 0.99);

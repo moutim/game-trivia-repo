@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import fetchQuestionsAPI from '../services/questionsAPI';
 import AlternativeButtons from '../components/AlternativeButtons';
+import './ScreenGame.css';
+import QuestionInfo from '../components/QuestionInfo';
+import Timer from '../components/Timer';
 
 class ScreenGame extends Component {
   state = {
@@ -24,20 +27,23 @@ class ScreenGame extends Component {
 
   countdown = () => {
     const { isDisabledButton, timer } = this.state;
-    const ONE_SECOND = 1000;
     const THIRTY_SECONDS = 30000;
+    const ONE_SECOND = 1000;
 
     const intervalTime = setInterval(() => {
       if (isDisabledButton === false && timer > 0) {
         this.setState((prevState) => ({
           timer: prevState.timer - 1,
+          isDisabledButton: false,
         }));
       }
     }, ONE_SECOND);
 
     setTimeout(() => {
-      this.setState({ isDisabledButton: true });
-      clearInterval(intervalTime);
+      if (timer === 0) {
+        this.setState({ isDisabledButton: true });
+        clearInterval(intervalTime);
+      }
     }, THIRTY_SECONDS);
   }
 
@@ -86,7 +92,7 @@ class ScreenGame extends Component {
 
     const questionsArray = [correctAnswer, ...incorrectAnswers];
     const shuffleQuestions = this.shuffleQuestions(questionsArray);
-
+    // this.countdown();
     this.setState({
       shuffleQuestions,
       currentQuestion: questions[plus1],
@@ -113,43 +119,51 @@ class ScreenGame extends Component {
       shuffleQuestions,
       isDisabledButton,
       timer,
+      questionNumber,
     } = this.state;
-
+    console.log(timer);
     return (
       <>
-        {/* { questionNumber === redirectInPosition && <Redirect to="/feedback" /> } */}
         <Header />
         <main>
-          <h1>Perguntas</h1>
-          <h2 data-testid="question-category">{ category }</h2>
-          <h3 data-testid="question-text">{ question }</h3>
-          <h4>{ difficulty }</h4>
-          <div data-testid="answer-options">
-            <AlternativeButtons
-              wasClicked={ wasClicked }
-              answerWasClicked={ this.answerWasClicked }
-              shuffleQuestions={ shuffleQuestions }
-              correctAnswer={ correctAnswer }
-              timer={ timer }
-              difficulty={ difficulty }
-              isDisabledButton={ isDisabledButton }
-            />
-          </div>
-          {
-            isShow && (
-              <button
-                type="button"
-                className={ isShow ? 'show' : 'hide' }
-                onClick={ this.handleButtonNextQuestion }
-                data-testid="btn-next"
-              >
-                Next
-              </button>)
-          }
-          <h3>
-            Tempo:
-            { timer }
-          </h3>
+
+          <section className="card">
+            <div className="container-info">
+              <QuestionInfo
+                questionNumber={ questionNumber }
+                category={ category }
+                difficulty={ difficulty }
+              />
+            </div>
+            <h3 data-testid="question-text">{ question }</h3>
+            <div className="alternative-box" data-testid="answer-options">
+              <AlternativeButtons
+                wasClicked={ wasClicked }
+                answerWasClicked={ this.answerWasClicked }
+                shuffleQuestions={ shuffleQuestions }
+                correctAnswer={ correctAnswer }
+                timer={ timer }
+                difficulty={ difficulty }
+                isDisabledButton={ isDisabledButton }
+              />
+            </div>
+            <div className="container-timer">
+              <Timer timer={ timer } />
+              {
+                isShow || timer === 0 ? (
+                  <button
+                    type="button"
+                    onClick={ this.handleButtonNextQuestion }
+                    className="buttonNext"
+                    data-testid="btn-next"
+                  >
+                    <i className="arrow fa-solid fa-right-long" />
+                  </button>)
+                  : false
+              }
+            </div>
+          </section>
+
         </main>
       </>
     );

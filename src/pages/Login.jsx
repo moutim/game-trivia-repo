@@ -64,7 +64,7 @@ class Login extends Component {
 
             <div className="userInputs">
               <label htmlFor="name">
-                Nome
+                <i className="fa-solid fa-user" />
                 <input
                   value={ name }
                   data-testid="input-player-name"
@@ -77,7 +77,7 @@ class Login extends Component {
               </label>
 
               <label htmlFor="email">
-                Email
+                <i className="fa-solid fa-envelope" />
                 <input
                   value={ email }
                   data-testid="input-gravatar-email"
