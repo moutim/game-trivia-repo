@@ -23,8 +23,6 @@ class AlternativeButtons extends Component {
         sendScore,
         sendAssertions,
         answerWasClicked,
-        buttonNextShow,
-        isClicked,
       } = this.props;
 
       let score = 0;
@@ -33,12 +31,6 @@ class AlternativeButtons extends Component {
         sendScore(score);
         sendAssertions();
       }
-      const { name, scorePoints, picture } = this.props;
-      const playerInfo = [{ name, score: scorePoints, picture }];
-      localStorage.setItem('ranking', JSON.stringify(playerInfo));
-
-      isClicked();
-      buttonNextShow();
       answerWasClicked();
     }
 
@@ -96,9 +88,6 @@ AlternativeButtons.propTypes = {
   timer: PropTypes.number.isRequired,
   sendScore: PropTypes.func.isRequired,
   sendAssertions: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  scorePoints: PropTypes.number.isRequired,
-  picture: PropTypes.string.isRequired,
   isDisabledButton: PropTypes.bool.isRequired,
   answerWasClicked: PropTypes.func.isRequired,
   wasClicked: PropTypes.bool.isRequired,
@@ -108,15 +97,9 @@ AlternativeButtons.defaultProps = {
   correctAnswer: '',
 };
 
-const mapStateToProps = (state) => ({
-  name: state.player.name,
-  picture: state.player.pictureGravatar,
-  scorePoints: state.player.score,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   sendScore: (score) => dispatch(addScore(score)),
   sendAssertions: () => dispatch(addAssertions()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlternativeButtons);
+export default connect(null, mapDispatchToProps)(AlternativeButtons);

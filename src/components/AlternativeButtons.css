@@ -1,7 +1,11 @@
 .correctAnswer {
-  border: 3px solid rgb(6, 240, 15);
+  border-color: rgb(6, 240, 15);
+  border-style: solid;
+  border-width: 3px;
 }
 
 .wrongAnswer {
-  border: 3px solid red;
+  border-color: red;
+  border-style: solid;
+  border-width: 3px;
 }

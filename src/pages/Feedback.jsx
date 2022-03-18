@@ -18,6 +18,26 @@ class Feedback extends Component {
     if (assertions >= than3) feedBackMessage = 'Well Done!';
 
     this.setState({ feedBackMessage });
+    this.handleLocalStorage();
+  }
+
+  handleButtonPlayAgain = () => {
+    const { history } = this.props;
+    history.push('/');
+  }
+
+  // Referencie: https://medium.com/@lameckanao/armazenando-e-manipulando-dados-no-localstorage-7bcc901ba12b
+  handleLocalStorage = () => {
+    const { name, score, picture } = this.props;
+    if (localStorage.getItem('ranking') === null) {
+      localStorage.setItem('ranking', JSON.stringify([{ name, score, picture }]));
+    } else {
+      const playersRanking = [
+        ...JSON.parse(localStorage.getItem('ranking')), { name, score, picture },
+      ];
+      playersRanking.sort((a, b) => b.score - a.score);
+      localStorage.setItem('ranking', JSON.stringify(playersRanking));
+    }
   }
 
   render() {
@@ -45,9 +65,7 @@ class Feedback extends Component {
           <button
             type="button"
             data-testid="btn-play-again"
-            onClick={ () => {
-              history.push('/');
-            } }
+            onClick={ this.handleButtonPlayAgain }
           >
             Play Again
           </button>
@@ -73,11 +91,15 @@ Feedback.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  name: PropTypes.string.isRequired,
+  picture: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   score: state.player.score,
   assertions: state.player.assertions,
+  name: state.player.name,
+  picture: state.player.pictureGravatar,
 });
 
 export default connect(mapStateToProps)(Feedback);
