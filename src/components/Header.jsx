@@ -38,7 +38,7 @@ class Header extends Component {
             <p
               data-testid="header-player-name"
             >
-              Jogador:
+              Player:
               <span className="highlightedText">{ name }</span>
             </p>
           </div>
@@ -46,7 +46,7 @@ class Header extends Component {
           <p
             className="score-points"
           >
-            {'Pontos:'}
+            {'Score:'}
             {' '}
             <span className="highlightedText" data-testid="header-score">{ score }</span>
           </p>

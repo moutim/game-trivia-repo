@@ -135,7 +135,10 @@ class ScreenGame extends Component {
                 difficulty={ difficulty }
               />
             </div>
-            <h3 data-testid="question-text">{ question }</h3>
+            <h3
+              dangerouslySetInnerHTML={ { __html: question } }
+              data-testid="question-text"
+            />
             <div className="alternative-box" data-testid="answer-options">
               <AlternativeButtons
                 wasClicked={ wasClicked }

@@ -71,7 +71,7 @@ class Login extends Component {
                   type="text"
                   name="name"
                   id="name"
-                  placeholder="Nome"
+                  placeholder="Name"
                   onChange={ this.handleInputChange }
                 />
               </label>
