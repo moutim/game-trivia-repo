@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/game-trivia-repo/static/css/main.7e702091.chunk.css",
+    "main.js": "/game-trivia-repo/static/js/main.5465d4a2.chunk.js",
+    "main.js.map": "/game-trivia-repo/static/js/main.5465d4a2.chunk.js.map",
+    "runtime-main.js": "/game-trivia-repo/static/js/runtime-main.65fe69db.js",
+    "runtime-main.js.map": "/game-trivia-repo/static/js/runtime-main.65fe69db.js.map",
+    "static/js/2.d4161e73.chunk.js": "/game-trivia-repo/static/js/2.d4161e73.chunk.js",
+    "static/js/2.d4161e73.chunk.js.map": "/game-trivia-repo/static/js/2.d4161e73.chunk.js.map",
+    "index.html": "/game-trivia-repo/index.html",
+    "precache-manifest.dd5d31dce91e2bbcb822816566fd0eda.js": "/game-trivia-repo/precache-manifest.dd5d31dce91e2bbcb822816566fd0eda.js",
+    "service-worker.js": "/game-trivia-repo/service-worker.js",
+    "static/css/main.7e702091.chunk.css.map": "/game-trivia-repo/static/css/main.7e702091.chunk.css.map",
+    "static/js/2.d4161e73.chunk.js.LICENSE.txt": "/game-trivia-repo/static/js/2.d4161e73.chunk.js.LICENSE.txt",
+    "static/media/hourglass.png": "/game-trivia-repo/static/media/hourglass.7d6c26b4.png",
+    "static/media/trivia.png": "/game-trivia-repo/static/media/trivia.466d153e.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.65fe69db.js",
+    "static/js/2.d4161e73.chunk.js",
+    "static/css/main.7e702091.chunk.css",
+    "static/js/main.5465d4a2.chunk.js"
+  ]
+}
